@@ -11,6 +11,20 @@ A lightweight, client-side Fabric mod that displays a minimal weather and time H
 - **Corner Positioning:** Place HUD in any corner (TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT)
 - **Auto-hide:** Hides when you press F1 (vanilla HUD toggle)
 - **Smart Detection:** Automatically detects snow in cold biomes
+- **Crash Protection:** Comprehensive error handling to prevent game crashes
+
+## What's New in v1.0.1
+
+**Bug Fixes:**
+- Fixed crash on Windows 11 caused by incompatible text rendering method signature
+- Resolved `NoSuchMethodError` with `drawTextWithShadow` method
+
+**Improvements:**
+- Added comprehensive null safety checks throughout rendering code
+- Implemented error logging for better debugging
+- Enhanced biome detection with defensive error handling
+- Updated dependency constraints for better version compatibility
+- Added migration notes for future Minecraft versions
 
 ## Installation
 
@@ -80,7 +94,7 @@ Visit a snowy biome during rain to see the SNOW ❄ indicator.
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/stormscope-hud.git
+   git clone https://github.com/dcosand/stormscope-hud.git
    cd stormscope-hud
    ```
 
