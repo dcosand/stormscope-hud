@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "stormscope_hud",
+  "version": "${version}",
+  "name": "StormScope HUD",
+  "description": "Minimal always-on weather and time HUD overlay.",
+  "authors": [
+    "stormscope"
+  ],
+  "contact": {
+    "homepage": ""
+  },
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.stormscope.hud.StormScopeHudClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "fabric-api": "*",
+    "minecraft": ">=1.21"
+  }
+}
