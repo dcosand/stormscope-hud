@@ -77,7 +77,39 @@ public final class StormScopeHudClient implements ClientModInitializer {
             case TOP_RIGHT, BOTTOM_RIGHT -> screenWidth - padding - lineWidth;
         };
 
-        context.drawText(textRenderer, Text.literal(line), x, y, 0xFFFFFF, true);
+        // Try multiple rendering methods for cross-version compatibility
+        // Different Minecraft 1.21.x versions have different DrawContext APIs
+        drawTextSafely(context, textRenderer, line, x, y, 0xFFFFFF);
+    }
+
+    /**
+     * Attempts multiple text rendering methods for maximum version compatibility.
+     * Minecraft 1.21.x has inconsistent DrawContext APIs across minor versions.
+     */
+    private void drawTextSafely(DrawContext context, TextRenderer textRenderer, String text, int x, int y, int color) {
+        try {
+            // Method 1: drawText with Text and shadow boolean (some 1.21.x versions)
+            context.drawText(textRenderer, Text.literal(text), x, y, color, true);
+        } catch (NoSuchMethodError e1) {
+            try {
+                // Method 2: drawTextWithShadow with Text (other 1.21.x versions)
+                context.drawTextWithShadow(textRenderer, Text.literal(text), x, y, color);
+            } catch (NoSuchMethodError e2) {
+                try {
+                    // Method 3: drawText with String and shadow boolean (fallback)
+                    context.drawText(textRenderer, text, x, y, color, true);
+                } catch (NoSuchMethodError e3) {
+                    try {
+                        // Method 4: drawTextWithShadow with String (another fallback)
+                        context.drawTextWithShadow(textRenderer, text, x, y, color);
+                    } catch (NoSuchMethodError e4) {
+                        // If all methods fail, log the error
+                        LOGGER.error("Could not find compatible text rendering method for this Minecraft version. " +
+                                    "Please report this issue with your Minecraft version.", e4);
+                    }
+                }
+            }
+        }
     }
 
     private String getWeatherLine(ClientWorld world) {
