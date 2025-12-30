@@ -13,18 +13,25 @@ A lightweight, client-side Fabric mod that displays a minimal weather and time H
 - **Smart Detection:** Automatically detects snow in cold biomes
 - **Crash Protection:** Comprehensive error handling to prevent game crashes
 
-## What's New in v1.0.1
+## What's New in v1.0.2
 
 **Bug Fixes:**
-- Fixed crash on Windows 11 caused by incompatible text rendering method signature
-- Resolved `NoSuchMethodError` with `drawTextWithShadow` method
+- Fixed initialization crash when config file is corrupted or contains invalid data
+- Improved error handling to gracefully recover from malformed configuration files
 
-**Improvements:**
-- Added comprehensive null safety checks throughout rendering code
-- Implemented error logging for better debugging
-- Enhanced biome detection with defensive error handling
-- Updated dependency constraints for better version compatibility
-- Added migration notes for future Minecraft versions
+**Reliability:**
+- Enhanced exception handling in config loading to prevent startup failures
+- Automatic fallback to default settings when config cannot be parsed
+
+### Previous Updates
+
+**v1.0.1:**
+- Fixed crash on Windows 11 systems
+- Added comprehensive null safety checks
+- Enhanced biome detection with improved error handling
+
+**v1.0.0:**
+- Initial release with core weather and time display features
 
 ## Installation
 
