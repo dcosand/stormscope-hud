@@ -7,6 +7,7 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.Window;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,7 +77,7 @@ public final class StormScopeHudClient implements ClientModInitializer {
             case TOP_RIGHT, BOTTOM_RIGHT -> screenWidth - padding - lineWidth;
         };
 
-        context.drawText(textRenderer, line, x, y, 0xFFFFFF, true);
+        context.drawText(textRenderer, Text.literal(line), x, y, 0xFFFFFF, true);
     }
 
     private String getWeatherLine(ClientWorld world) {
