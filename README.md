@@ -13,25 +13,31 @@ A lightweight, client-side Fabric mod that displays a minimal weather and time H
 - **Smart Detection:** Automatically detects snow in cold biomes
 - **Crash Protection:** Comprehensive error handling to prevent game crashes
 
-## What's New in v1.0.2
+## What's New in v1.0.3
 
 **Bug Fixes:**
-- Fixed initialization crash when config file is corrupted or contains invalid data
-- Improved error handling to gracefully recover from malformed configuration files
+- Fixed `NoSuchMethodError` crash when loading a world (text rendering API compatibility)
+- Fixed snow detection using temperature-based checking for better cross-version support
+
+**Compatibility:**
+- Broadened Minecraft version support to all 1.21.x releases (1.21.0 - 1.21.4)
+- Updated text rendering to use stable `drawText` API instead of version-sensitive methods
+- Improved Fabric API version constraints for better dependency resolution
 
 **Reliability:**
-- Enhanced exception handling in config loading to prevent startup failures
-- Automatic fallback to default settings when config cannot be parsed
+- Added null safety check for config object during HUD rendering
+- Enhanced biome temperature detection for accurate snow/rain display
 
 ### Previous Updates
 
+**v1.0.2:**
+- Fixed initialization crash from corrupted config files
+
 **v1.0.1:**
 - Fixed crash on Windows 11 systems
-- Added comprehensive null safety checks
-- Enhanced biome detection with improved error handling
 
 **v1.0.0:**
-- Initial release with core weather and time display features
+- Initial release
 
 ## Installation
 

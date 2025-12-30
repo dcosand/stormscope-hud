@@ -7,7 +7,6 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.Window;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,6 +23,10 @@ public final class StormScopeHudClient implements ClientModInitializer {
 
     private void renderHud(DrawContext context, net.minecraft.client.render.RenderTickCounter tickCounter) {
         try {
+            if (config == null) {
+                return;
+            }
+
             MinecraftClient client = MinecraftClient.getInstance();
             if (client == null || client.options == null || client.options.hudHidden) {
                 return;
@@ -73,7 +76,7 @@ public final class StormScopeHudClient implements ClientModInitializer {
             case TOP_RIGHT, BOTTOM_RIGHT -> screenWidth - padding - lineWidth;
         };
 
-        context.drawTextWithShadow(textRenderer, Text.literal(line), x, y, 0xFFFFFF);
+        context.drawText(textRenderer, line, x, y, 0xFFFFFF, true);
     }
 
     private String getWeatherLine(ClientWorld world) {
@@ -84,17 +87,20 @@ public final class StormScopeHudClient implements ClientModInitializer {
         }
 
         if (world.isRaining()) {
-            // Check if it's snowing at player position
+            // Check if it's snowing at player position using temperature
+            // Biomes with temperature < 0.15 have snow instead of rain
             if (client.player != null) {
                 try {
                     var pos = client.player.getBlockPos();
                     var biome = world.getBiome(pos);
-                    // Check if precipitation at this position is snow
-                    if (biome != null && biome.value() != null && !biome.value().doesNotSnow(pos)) {
-                        return "Weather: SNOW ❄";
+                    if (biome != null && biome.value() != null) {
+                        float temp = biome.value().getTemperature();
+                        if (temp < 0.15f) {
+                            return "Weather: SNOW ❄";
+                        }
                     }
                 } catch (Exception e) {
-                    LOGGER.debug("Error checking biome for snow", e);
+                    LOGGER.debug("Error checking biome temperature for snow", e);
                 }
             }
             return "Weather: RAIN \uD83C\uDF27";
