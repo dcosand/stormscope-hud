@@ -31,8 +31,8 @@ public final class HudConfig {
                 if (config != null && config.corner != null) {
                     return config;
                 }
-            } catch (IOException ignored) {
-                // Fall through to defaults.
+            } catch (Exception ignored) {
+                // Fall through to defaults if config is corrupted or unreadable.
             }
         }
 
